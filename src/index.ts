@@ -1,3 +1,5 @@
+import { HowlAudioPlayer } from "./players/howler";
+
 export enum AudioPlayerState {
   LOADING = "LOADING",
   PAUSED = "PAUSED",
@@ -14,7 +16,7 @@ export interface AudioPlayer {
   getPosition: () => Promise<number>;
   getState: () => Promise<AudioPlayerState>;
   getVolume: () => Promise<number>;
-  // load: (src: string, options: LoadOptions) => void;
+  load: (src: string) => void;
   play: () => Promise<void>;
   pause: () => Promise<void>;
   setFade: (from: number, to: number, duration: number) => Promise<void>;
@@ -28,64 +30,13 @@ export interface AudioPlayer {
 }
 
 export enum SupportedPlayers {
-  TEST = "test",
+  HOWLER = "howler",
 }
 
 type AudioPlayerRegistry<Keys extends SupportedPlayers> = {
   [key in Keys]: AudioPlayer;
 };
 
-const testAudioPlayer: AudioPlayer = {
-  getDuration: () => {
-    throw new Error("Not implemented");
-  },
-  getIsMuted: () => {
-    throw new Error("Not implemented");
-  },
-  getIsSetToLoop: () => {
-    throw new Error("Not implemented");
-  },
-  getPlaybackRate: () => {
-    throw new Error("Not implemented");
-  },
-  getPosition: () => {
-    throw new Error("Not implemented");
-  },
-  getState: () => {
-    throw new Error("Not implemented");
-  },
-  getVolume: () => {
-    throw new Error("Not implemented");
-  },
-  play: () => {
-    throw new Error("Not implemented");
-  },
-  pause: () => {
-    throw new Error("Not implemented");
-  },
-  setFade: () => {
-    throw new Error("Not implemented");
-  },
-  setIsMuted: () => {
-    throw new Error("Not implemented");
-  },
-  setIsSetToLoop: () => {
-    throw new Error("Not implemented");
-  },
-  setPosition: () => {
-    throw new Error("Not implemented");
-  },
-  setPlaybackRate: () => {
-    throw new Error("Not implemented");
-  },
-  setVolume: () => {
-    throw new Error("Not implemented");
-  },
-  stop: () => {
-    throw new Error("Not implemented");
-  },
-};
-
 export const audioPlayerRegistry: AudioPlayerRegistry<SupportedPlayers> = {
-  [SupportedPlayers.TEST]: testAudioPlayer,
+  [SupportedPlayers.HOWLER]: new HowlAudioPlayer(),
 };
