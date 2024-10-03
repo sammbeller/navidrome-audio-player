@@ -12,6 +12,11 @@ describe("Registry Tests", () => {
           expect(await audioPlayer.getDuration()).toBe(10);
         });
       });
+      // describe("getVolume", () => {
+      //   it("should return 0 when there is no sound playing", async () => {
+      //     expect(await audioPlayer.getVolume()).toBe(0);
+      //   });
+      // });
     });
   });
 });

@@ -1,7 +1,6 @@
 import { HowlAudioPlayer } from "./players/howler";
 
 export enum AudioPlayerState {
-  LOADING = "LOADING",
   PAUSED = "PAUSED",
   PLAYING = "PLAYING",
   STOPPED = "STOPPED",
@@ -11,7 +10,7 @@ export interface AudioPlayer {
   error?: string;
   getDuration: () => Promise<number>;
   getIsMuted: () => Promise<boolean>;
-  getIsSetToLoop: () => Promise<boolean>;
+  getIsLooping: () => Promise<boolean>;
   getPlaybackRate: () => Promise<number>;
   getPosition: () => Promise<number>;
   getState: () => Promise<AudioPlayerState>;
@@ -21,12 +20,11 @@ export interface AudioPlayer {
   pause: () => Promise<void>;
   setFade: (from: number, to: number, duration: number) => Promise<void>;
   setIsMuted: (isMuted: boolean) => Promise<void>;
-  setIsSetToLoop: (isSetToLoop: boolean) => Promise<void>;
+  setIsLooping: (isLooping: boolean) => Promise<void>;
   setPosition: (position: number) => Promise<void>;
   setPlaybackRate: (playbackRate: number) => Promise<void>;
   setVolume: (volume: number) => Promise<void>;
   stop: () => Promise<void>;
-  src?: string;
 }
 
 export enum SupportedPlayers {

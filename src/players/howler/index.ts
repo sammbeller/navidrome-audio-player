@@ -1,39 +1,93 @@
 import { Howl } from "howler";
-import { type AudioPlayerState } from "../..";
+import { type AudioPlayer, AudioPlayerState } from "../..";
 
-export class HowlAudioPlayer {
-  howlInstance?: Howl;
+export class HowlAudioPlayer implements AudioPlayer {
+  public error?: string = undefined;
+  howlInstance?: Howl = undefined;
+  /**
+   * Howler doesn't expose its internal `_loop` variable so this needs to be tracked separately
+   */
+  private isLooping: boolean = false;
+  /**
+   * Howler doesn't expose its internal `_muted` variable so this needs to be tracked separately
+   */
+  private isMuted: boolean = false;
+  /**
+   * Howler doesn't expose its internal `_paused` variable so this needs to be tracked separately
+   */
+  private isPaused: boolean = false;
   constructor() {}
 
-  getDuration(): Promise<number> {
-    throw new Error("Not implemented");
+  async getDuration(): Promise<number> {
+    return this.howlInstance?.duration() ?? 0;
   }
 
-  getIsMuted(): Promise<boolean> {
-    throw new Error("Not implemented");
+  async getIsMuted(): Promise<boolean> {
+    return this.isMuted;
   }
 
-  getIsSetToLoop(): Promise<boolean> {
-    throw new Error("Not implemented");
+  async getIsLooping(): Promise<boolean> {
+    return this.isLooping;
   }
-  getPlaybackRate(): Promise<number> {
-    throw new Error("Not implemented");
-  }
-
-  getPosition(): Promise<number> {
-    throw new Error("Not implemented");
+  async getPlaybackRate(): Promise<number> {
+    return this.howlInstance?.rate() ?? 0;
   }
 
-  getState(): Promise<AudioPlayerState> {
-    throw new Error("Not implemented");
+  async getPosition(): Promise<number> {
+    return this.howlInstance?.seek() ?? 0;
   }
 
-  getVolume(): Promise<number> {
-    throw new Error("Not implemented");
+  async getState(): Promise<AudioPlayerState> {
+    if (this.howlInstance === undefined) {
+      return AudioPlayerState.STOPPED;
+    } else if (this.howlInstance.playing()) {
+      return AudioPlayerState.PLAYING;
+    } else if (this.isPaused) {
+      return AudioPlayerState.PAUSED;
+    } else {
+      return AudioPlayerState.STOPPED;
+    }
   }
 
-  load(src: string): Promise<void> {
-    throw new Error("Not implemented");
+  async getVolume(): Promise<number> {
+    return this.howlInstance?.volume() ?? 0;
+  }
+
+  async load(src: string): Promise<void> {
+    if (this.howlInstance) {
+      this.howlInstance.stop();
+      this.howlInstance.unload();
+    }
+    this.howlInstance = new Howl({
+      onloaderror: (soundId, error) => {
+        console.error(
+          `Encountered error loading sound at ${src} on sound ID ${soundId}: ${error}`
+        );
+        if (typeof error === "string") {
+          this.error = error;
+        } else if (typeof error === "number") {
+          // See [this link](https://github.com/goldfire/howler.js?tab=readme-ov-file#onloaderror-function)
+          switch (error) {
+            case 1:
+              this.error =
+                "The fetching process for the media resource was aborted by the user agent at the user's request.";
+            case 2:
+              this.error =
+                "A network error of some description caused the user agent to stop fetching the media resource, after the resource was established to be usable.";
+            case 3:
+              this.error =
+                "An error of some description occurred while decoding the media resource, after the resource was established to be usable.";
+            case 4:
+              this.error =
+                "An error of some description occurred while decoding the media resource, after the resource was established to be usable.";
+            case 0:
+            default:
+              this.error = "Unkown error (error code 0)";
+          }
+        }
+      },
+      src,
+    });
   }
 
   play(): Promise<void> {
@@ -48,25 +102,33 @@ export class HowlAudioPlayer {
     throw new Error("Not implemented");
   }
 
-  setIsMuted(isMuted: boolean): Promise<void> {
-    throw new Error("Not implemented");
+  async setIsMuted(isMuted: boolean): Promise<void> {
+    if (this.howlInstance) {
+      this.howlInstance.mute(isMuted);
+      this.isMuted = isMuted;
+    }
   }
 
-  setIsSetToLoop(isSetToLoop: boolean): Promise<void> {
-    throw new Error("Not implemented");
+  async setIsLooping(isLooping: boolean): Promise<void> {
+    if (this.howlInstance) {
+      this.howlInstance.loop(isLooping);
+      this.isLooping = isLooping;
+    }
   }
 
-  setPosition(position: number): Promise<void> {
-    throw new Error("Not implemented");
+  async setPosition(position: number): Promise<void> {
+    this.howlInstance?.seek(position);
   }
 
-  setPlaybackRate(playbackRate: number): Promise<void> {
-    throw new Error("Not implemented");
+  async setPlaybackRate(playbackRate: number): Promise<void> {
+    this.howlInstance?.rate(playbackRate);
   }
-  setVolume(volume: number): Promise<void> {
-    throw new Error("Not implemented");
+
+  async setVolume(volume: number): Promise<void> {
+    this.howlInstance?.volume(volume);
   }
-  stop(): Promise<void> {
-    throw new Error("Not implemented");
+
+  async stop(): Promise<void> {
+    this.howlInstance?.stop();
   }
 }
