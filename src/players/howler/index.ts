@@ -71,15 +71,19 @@ export class HowlAudioPlayer implements AudioPlayer {
             case 1:
               this.error =
                 "The fetching process for the media resource was aborted by the user agent at the user's request.";
+              break;
             case 2:
               this.error =
                 "A network error of some description caused the user agent to stop fetching the media resource, after the resource was established to be usable.";
+              break;
             case 3:
               this.error =
                 "An error of some description occurred while decoding the media resource, after the resource was established to be usable.";
+              break;
             case 4:
               this.error =
                 "An error of some description occurred while decoding the media resource, after the resource was established to be usable.";
+              break;
             case 0:
             default:
               this.error = "Unkown error (error code 0)";
@@ -90,16 +94,22 @@ export class HowlAudioPlayer implements AudioPlayer {
     });
   }
 
-  play(): Promise<void> {
-    throw new Error("Not implemented");
+  async play(): Promise<void> {
+    if (this.howlInstance) {
+      this.howlInstance.play();
+    }
   }
 
-  pause(): Promise<void> {
-    throw new Error("Not implemented");
+  async pause(): Promise<void> {
+    if (this.howlInstance) {
+      this.howlInstance.pause();
+    }
   }
 
-  setFade(from: number, to: number, duration: number): Promise<void> {
-    throw new Error("Not implemented");
+  async setFade(from: number, to: number, duration: number): Promise<void> {
+    if (this.howlInstance) {
+      this.howlInstance.fade(from, to, duration);
+    }
   }
 
   async setIsMuted(isMuted: boolean): Promise<void> {
