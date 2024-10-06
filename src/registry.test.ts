@@ -1,4 +1,4 @@
-import { audioPlayerRegistry, SupportedPlayers } from ".";
+import { audioPlayerRegistry, SupportedPlayers } from "./registry";
 import { type AudioPlayer } from "./players/AudioPlayer";
 
 describe("Registry Tests", () => {
