@@ -1,4 +1,5 @@
-import { AudioPlayer, audioPlayerRegistry, SupportedPlayers } from ".";
+import { audioPlayerRegistry, SupportedPlayers } from ".";
+import { type AudioPlayer } from "./players/AudioPlayer";
 
 describe("Registry Tests", () => {
   Object.values(SupportedPlayers).forEach((key) => {
