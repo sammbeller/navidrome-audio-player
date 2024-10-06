@@ -94,15 +94,15 @@ export class HowlAudioPlayer implements AudioPlayer {
     });
   }
 
-  async play(): Promise<void> {
-    if (this.howlInstance) {
-      this.howlInstance.play();
-    }
-  }
-
   async pause(): Promise<void> {
     if (this.howlInstance) {
       this.howlInstance.pause();
+    }
+  }
+
+  async play(): Promise<void> {
+    if (this.howlInstance) {
+      this.howlInstance.play();
     }
   }
 

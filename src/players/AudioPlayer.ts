@@ -14,8 +14,8 @@ export interface AudioPlayer {
   getState: () => Promise<AudioPlayerState>;
   getVolume: () => Promise<number>;
   load: (src: string) => void;
-  play: () => Promise<void>;
   pause: () => Promise<void>;
+  play: () => Promise<void>;
   setFade: (from: number, to: number, duration: number) => Promise<void>;
   setIsMuted: (isMuted: boolean) => Promise<void>;
   setIsLooping: (isLooping: boolean) => Promise<void>;
