@@ -56,8 +56,8 @@ export const useAudioPlayer = (registryKey: SupportedPlayers) => {
   return {
     error,
     getDuration,
-    getIsMuted,
     getIsLooping,
+    getIsMuted,
     getPlaybackRate,
     getPosition,
     getState,
@@ -66,10 +66,10 @@ export const useAudioPlayer = (registryKey: SupportedPlayers) => {
     pause,
     play,
     setFade,
-    setIsMuted,
     setIsLooping,
-    setPosition,
+    setIsMuted,
     setPlaybackRate,
+    setPosition,
     setVolume,
     stop,
   };

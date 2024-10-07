@@ -1,6 +1,9 @@
 import { audioPlayerRegistry, SupportedPlayers } from "./registry";
 import { type AudioPlayer } from "./players/AudioPlayer";
 
+/**
+ * These tests iterate over all supported audio players and run tests on each
+ */
 describe("Registry Tests", () => {
   Object.values(SupportedPlayers).forEach((key) => {
     let audioPlayer: AudioPlayer;
