@@ -1,4 +1,4 @@
-import { audioPlayerRegistry, SupportedPlayers } from "./registry";
+import { SupportedPlayers, audioPlayerRegistry } from "./registry";
 import { type AudioPlayer } from "./players/AudioPlayer";
 
 /**

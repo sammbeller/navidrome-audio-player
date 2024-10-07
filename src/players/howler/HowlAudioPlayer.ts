@@ -1,5 +1,5 @@
-import { Howl } from "howler";
 import { type AudioPlayer, AudioPlayerState } from "../AudioPlayer";
+import { Howl } from "howler";
 
 export class HowlAudioPlayer implements AudioPlayer {
   public error?: string = undefined;

@@ -8,6 +8,25 @@ export default tseslint.config(
   ...tseslint.configs.recommended,
   {
     rules: {
+      "@typescript-eslint/consistent-type-imports": [
+        "error",
+        {
+          disallowTypeAnnotations: true,
+
+          fixStyle: "inline-type-imports",
+          prefer: "type-imports",
+        },
+      ],
+      "sort-imports": [
+        "error",
+        {
+          allowSeparatedGroups: false,
+          ignoreCase: false,
+          ignoreDeclarationSort: false,
+          ignoreMemberSort: false,
+          memberSyntaxSortOrder: ["none", "all", "multiple", "single"],
+        },
+      ],
       "sort-keys": [
         "error",
         "asc",
