@@ -1,5 +1,5 @@
 import { type AudioPlayer } from "./players/AudioPlayer";
-import { HowlAudioPlayer } from "./players/howler/HowlAudioPlayer";
+import { HowlAudioPlayer } from "./players/HowlAudioPlayer";
 
 export enum SupportedPlayers {
   HOWLER = "howler",

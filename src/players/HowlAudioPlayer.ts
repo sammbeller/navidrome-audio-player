@@ -1,4 +1,4 @@
-import { type AudioPlayer, AudioPlayerState } from "../AudioPlayer";
+import { type AudioPlayer, AudioPlayerState } from "./AudioPlayer";
 import { Howl } from "howler";
 
 export class HowlAudioPlayer implements AudioPlayer {
