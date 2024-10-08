@@ -1,5 +1,5 @@
-import { SupportedPlayers, audioPlayerRegistry } from "./registry";
-import { type AudioPlayer } from "./players/AudioPlayer";
+import { SupportedPlayers, audioPlayerRegistry } from "../src/registry";
+import { type AudioPlayer } from "../src/players/AudioPlayer";
 
 /**
  * These tests iterate over all supported audio players and run tests on each
