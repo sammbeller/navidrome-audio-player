@@ -1,5 +1,5 @@
 import { type SupportedPlayers, audioPlayerRegistry } from "./registry";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useRef } from "react";
 
 
 export const useAudioPlayer = (registryKey: SupportedPlayers) => {
