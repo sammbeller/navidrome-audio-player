@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint"
+    "lint": "eslint",
+    "test": "tsc && esbuild build/registry.js --bundle --sourcemap --format=esm --outfile=build/registry.bundle.js && jest --rootDir=./test"
   },
   "author": "",
   "license": "ISC",
@@ -13,8 +14,13 @@
     "@types/eslint__js": "^8.42.3",
     "@types/howler": "^2.2.12",
     "@types/jest": "^29.5.13",
+    "@types/jest-environment-puppeteer": "^5.0.6",
     "@types/react": "^18.3.11",
+    "esbuild": "^0.24.0",
     "eslint": "^9.12.0",
+    "http-server": "^14.1.1",
+    "jest-environment-puppeteer": "^10.1.1",
+    "jest-puppeteer": "^10.1.1",
     "prettier": "^3.3.3",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
@@ -24,5 +30,11 @@
   "dependencies": {
     "howler": "^2.2.4",
     "react": "^18.3.1"
+  },
+  "jest-puppeteer": {
+    "server": {
+      "command": "npx http-server -p 3000",
+      "port": 3000
+    }
   }
 }
