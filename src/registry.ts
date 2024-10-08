@@ -6,9 +6,9 @@ export enum SupportedPlayers {
 }
 
 type AudioPlayerRegistry<Keys extends SupportedPlayers> = {
-  [key in Keys]: AudioPlayer;
+  [key in Keys]: () => AudioPlayer;
 };
 
 export const audioPlayerRegistry: AudioPlayerRegistry<SupportedPlayers> = {
-  [SupportedPlayers.HOWLER]: new HowlAudioPlayer(),
+  [SupportedPlayers.HOWLER]: () => new HowlAudioPlayer(),
 };

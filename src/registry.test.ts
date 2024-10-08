@@ -7,13 +7,21 @@ import { type AudioPlayer } from "./players/AudioPlayer";
 describe("Registry Tests", () => {
   Object.values(SupportedPlayers).forEach((key) => {
     let audioPlayer: AudioPlayer;
-    beforeAll(() => {
-      audioPlayer = audioPlayerRegistry[key];
+    beforeEach(() => {
+      audioPlayer = audioPlayerRegistry[key]();
     });
     describe(key, () => {
       describe("getDuration", () => {
         it("should return the duration of an audio file", async () => {
+          await audioPlayer.load("../noise.wav");
+          console.log(audioPlayer.error);
           expect(await audioPlayer.getDuration()).toBe(10);
+        });
+      });
+      describe("play", () => {
+        it("should return an error when no sound is loaded", async () => {
+          await audioPlayer.play();
+          expect(audioPlayer.error).toBeDefined();
         });
       });
       // describe("getVolume", () => {

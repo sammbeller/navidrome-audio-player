@@ -3,8 +3,7 @@ import { useCallback, useRef, useState } from "react";
 
 
 export const useAudioPlayer = (registryKey: SupportedPlayers) => {
-  const audioPlayer = useRef(audioPlayerRegistry[registryKey]);
-  const error = useState(audioPlayer.current.error);
+  const audioPlayer = useRef(audioPlayerRegistry[registryKey]());
 
   const getDuration = useCallback(audioPlayer.current.getDuration, [
     audioPlayer,
@@ -55,7 +54,7 @@ export const useAudioPlayer = (registryKey: SupportedPlayers) => {
   const stop = useCallback(audioPlayer.current.stop, [audioPlayer]);
 
   return {
-    error,
+    error: audioPlayer.current.error,
     getDuration,
     getIsLooping,
     getIsMuted,
