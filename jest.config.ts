@@ -10,6 +10,4 @@ const jestConfig: JestConfigWithTsJest = {
   }
 };
 
-console.log(defaultPreset, jestConfig);
-
 export default jestConfig;
