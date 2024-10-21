@@ -17,6 +17,12 @@ export default tseslint.config(
           prefer: "type-imports",
         },
       ],
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          "argsIgnorePattern": "^_",
+        }
+      ],
       "sort-imports": [
         "error",
         {
