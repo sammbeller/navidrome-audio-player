@@ -1,60 +1,59 @@
-import { type SupportedPlayers, audioPlayerRegistry } from "./registry";
 import { useCallback, useRef } from "react";
+import { type AudioPlayer } from "./players/AudioPlayer";
 
+export const useAudioPlayer = (audioPlayer: AudioPlayer) => {
+  const audioPlayerRef = useRef(audioPlayer);
 
-export const useAudioPlayer = (registryKey: SupportedPlayers) => {
-  const audioPlayer = useRef(audioPlayerRegistry[registryKey]());
-
-  const getDuration = useCallback(audioPlayer.current.getDuration, [
+  const getDuration = useCallback(audioPlayerRef.current.getDuration, [
     audioPlayer,
   ]);
 
-  const getIsMuted = useCallback(audioPlayer.current.getIsMuted, [audioPlayer]);
+  const getIsMuted = useCallback(audioPlayerRef.current.getIsMuted, [audioPlayer]);
 
-  const getIsLooping = useCallback(audioPlayer.current.getIsLooping, [
+  const getIsLooping = useCallback(audioPlayerRef.current.getIsLooping, [
     audioPlayer,
   ]);
 
-  const getPlaybackRate = useCallback(audioPlayer.current.getPlaybackRate, [
+  const getPlaybackRate = useCallback(audioPlayerRef.current.getPlaybackRate, [
     audioPlayer,
   ]);
 
-  const getPosition = useCallback(audioPlayer.current.getPosition, [
+  const getPosition = useCallback(audioPlayerRef.current.getPosition, [
     audioPlayer,
   ]);
 
-  const getState = useCallback(audioPlayer.current.getState, [audioPlayer]);
+  const getState = useCallback(audioPlayerRef.current.getState, [audioPlayer]);
 
-  const getVolume = useCallback(audioPlayer.current.getVolume, [audioPlayer]);
+  const getVolume = useCallback(audioPlayerRef.current.getVolume, [audioPlayer]);
 
-  const load = useCallback(audioPlayer.current.load, [audioPlayer]);
+  const load = useCallback(audioPlayerRef.current.load, [audioPlayer]);
 
-  const pause = useCallback(audioPlayer.current.pause, [audioPlayer]);
+  const pause = useCallback(audioPlayerRef.current.pause, [audioPlayer]);
 
-  const play = useCallback(audioPlayer.current.play, [audioPlayer]);
+  const play = useCallback(audioPlayerRef.current.play, [audioPlayer]);
 
-  const setFade = useCallback(audioPlayer.current.setFade, [audioPlayer]);
+  const setFade = useCallback(audioPlayerRef.current.setFade, [audioPlayer]);
 
-  const setIsMuted = useCallback(audioPlayer.current.setIsMuted, [audioPlayer]);
+  const setIsMuted = useCallback(audioPlayerRef.current.setIsMuted, [audioPlayer]);
 
-  const setIsLooping = useCallback(audioPlayer.current.setIsLooping, [
+  const setIsLooping = useCallback(audioPlayerRef.current.setIsLooping, [
     audioPlayer,
   ]);
 
-  const setPosition = useCallback(audioPlayer.current.setPosition, [
+  const setPosition = useCallback(audioPlayerRef.current.setPosition, [
     audioPlayer,
   ]);
 
-  const setPlaybackRate = useCallback(audioPlayer.current.setPlaybackRate, [
+  const setPlaybackRate = useCallback(audioPlayerRef.current.setPlaybackRate, [
     audioPlayer,
   ]);
 
-  const setVolume = useCallback(audioPlayer.current.setVolume, [audioPlayer]);
+  const setVolume = useCallback(audioPlayerRef.current.setVolume, [audioPlayer]);
 
-  const stop = useCallback(audioPlayer.current.stop, [audioPlayer]);
+  const stop = useCallback(audioPlayerRef.current.stop, [audioPlayer]);
 
   return {
-    error: audioPlayer.current.error,
+    error: audioPlayerRef.current.error,
     getDuration,
     getIsLooping,
     getIsMuted,
